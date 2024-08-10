@@ -88,6 +88,26 @@ Page {
                 id: debugModeItem
                 title: "Debug mode"
             }
+            SelectionListItem{
+                id: httpsModeItem
+                title: "Https mode"
+            }
+            ListItem {
+                id: httpProxyUrlItem
+                Column {
+                    anchors.fill: httpProxyUrlItem.paddingItem
+                    ListItemText {
+                        mode: httpProxyUrlItem.mode
+                        role: "Title"
+                        text: "http proxy"
+                    }
+                    ListItemText {
+                        mode: httpProxyUrlItem.mode
+                        role: "SubTitle"
+                        text: "Hostname and port of the http proxy"
+                    }
+                }
+            }
         }
     }
 }

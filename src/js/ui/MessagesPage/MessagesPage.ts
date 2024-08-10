@@ -9,14 +9,15 @@ declare const msgListView: Qml.ListView;
 declare const sendButton: Qml.ToolButton;
 declare const inputField: Qml.TextArea;
 declare const msgListItem: Qml.Component;
-
+const httpProxyUrl = Settings.get("httpProxyUrl");
+const https = Settings.get("https") ? " https" : "http";
 const URL_REGEXP = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)/g;
 
 function sendMessage(content: string) {
     inputField.text = "";
     Http.request<MessageDto[]>({
         method: "POST",
-        path: `https://discord.com/api/v9/channels/${msgPage.channelId}/messages`,
+        path: `https://${httpProxyUrl}/api/v9/channels/${msgPage.channelId}/messages`,
         body: JSON.stringify({ content }),
     }, (err, messages) => null);
 }

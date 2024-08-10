@@ -6,6 +6,8 @@ declare const cdnProxyUrlItem: Qml.ListItem;
 declare const proxyUrlItem: Qml.ListItem;
 declare const dialogField: Qml.TextField;
 declare const debugModeItem: Qml.SelectionListItem;
+declare const httpsModeItem: Qml.SelectionListItem;
+declare const httpProxyUrlItem: Qml.ListItem;
 
 function loadSettings() {
     debugModeItem.subTitle = Settings.get("debug") ? "Enabled" : "Disabled";
@@ -48,6 +50,17 @@ function handleReady() {
     debugModeItem.clicked.connect(() => {
         Settings.set("debug", !Settings.get("debug"));
         loadSettings();
+    });
+    httpsModeItem.clicked.connect(() => {
+        Settings.set("https", !Settings.get("https"));
+        loadSettings();
+    });
+    httpProxyUrlItem.clicked.connect(() => {
+        dialog.titleText = "http proxy URL";
+        dialogField.text = Settings.get("httpProxyUrl") ?? "";
+        dialogField.placeholderText = "hostname:port";
+        property = "httpProxyUrl";
+        dialog.open();
     });
 
     loadSettings();
